@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nodeapp-env
+data:
+  USER: "sandrodev"
+  EMAIL: "sandro.dev@gmail.com"
