@@ -10,7 +10,7 @@ spec:
     matchLabels:
       app: nodeapp
 
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -25,14 +25,6 @@ spec:
               cpu: "500m"
           ports:
             - containerPort: 4000
-          env:
-            - name: USER
-              valueFrom:
-                configMapKeyRef:
-                  name: nodeapp-env
-                  key: USER
-            - name: EMAIL
-              valueFrom:
-                configMapKeyRef:
-                  name: nodeapp-env
-                  key: EMAIL
+          envFrom:
+            - configMapRef:
+                name: nodeapp-env
