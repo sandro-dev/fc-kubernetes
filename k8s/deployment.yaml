@@ -19,6 +19,32 @@ spec:
       containers:
         - name: nodeapp
           image: sandrodev/node-ts-app:1.6.5
+
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: 4000
+            periodSeconds: 3
+            failureThreshold: 30
+
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 4000
+            periodSeconds: 3
+            failureThreshold: 1
+            # initialDelaySeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 4000
+            periodSeconds: 5
+            failureThreshold: 1
+            timeoutSeconds: 1
+            successThreshold: 1
+            # initialDelaySeconds: 10
+
           resources:
             limits:
               memory: "128Mi"
@@ -28,15 +54,3 @@ spec:
           envFrom:
             - configMapRef:
                 name: nodeapp-env
-
-          volumeMounts:
-            - mountPath: "/usr/src/app/data"
-              name: config
-
-      volumes:
-        - name: config
-          configMap:
-            name: nodeapp-configvolume
-            items:
-              - key: techs
-                path: "./data/.env"
