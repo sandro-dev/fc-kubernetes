@@ -59,7 +59,7 @@ spec:
                 name: nodeapp-env
 
           volumeMounts:
-            - mountPath: "/usr/src/app"
+            - mountPath: "/tmp"
               name: "nodeapp-volume"
 
       volumes:
