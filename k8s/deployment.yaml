@@ -18,14 +18,21 @@ spec:
     spec:
       containers:
         - name: nodeapp
-          image: sandrodev/node-ts-app:1.6.5
+          image: sandrodev/node-ts-app:1.7
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "500m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
 
           startupProbe:
             httpGet:
               path: /healthz
               port: 4000
             periodSeconds: 3
-            failureThreshold: 30
+            failureThreshold: 20
 
           readinessProbe:
             httpGet:
@@ -45,10 +52,6 @@ spec:
             successThreshold: 1
             # initialDelaySeconds: 10
 
-          resources:
-            limits:
-              memory: "128Mi"
-              cpu: "500m"
           ports:
             - containerPort: 4000
           envFrom:

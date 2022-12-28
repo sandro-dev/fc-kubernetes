@@ -3,6 +3,9 @@ import { version, name } from '../package.json'
 const routes = Router()
 import fs from 'fs'
 
+
+routes.get('/healthz', (request: Request, response: Response) => response.sendStatus(200))
+
 routes.get('/', (request: Request, response: Response) => {
   return response.json({
     name,
@@ -16,7 +19,7 @@ routes.get('/', (request: Request, response: Response) => {
 })
 
 routes.get('/readfile', (request: Request, response: Response) => {
-  fs.readFile('../data/.env', 'utf8', (err, data) => {
+  fs.readFile('../data/variables.txt', 'utf8', (err, data) => {
     if (err) {
       console.error(err);
       return;
@@ -29,7 +32,7 @@ routes.get('/readfile', (request: Request, response: Response) => {
       isWorking: true,
       timestamp: new Date().toISOString(),
       file: {
-        name: '../data/.env',
+        name: '../data/variables.txt',
         data
       }
     })
