@@ -57,3 +57,12 @@ spec:
           envFrom:
             - configMapRef:
                 name: nodeapp-env
+
+          volumeMounts:
+            - mountPath: "/usr/src/app"
+              name: "nodeapp-volume"
+
+      volumes:
+        - name: "nodeapp-volume"
+          persistentVolumeClaim:
+            claimName: "nodeapp-pvc"
