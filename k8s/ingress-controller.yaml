@@ -4,6 +4,10 @@ metadata:
   name: ingress-host
   labels:
     name: ingress-host
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt"
+    ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
   rules:
     - host: sandrosantos.dev
@@ -16,3 +20,7 @@ spec:
                 name: nodeapp-service
                 port:
                   number: 80
+      tls:
+        - hosts:
+            - "ingress.sandrosantos.dev"
+          secretName: letsencrypt-tls
